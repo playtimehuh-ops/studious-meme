@@ -1,21 +1,13 @@
 # Snack Drop
 
-A simple, responsive storefront for one seller's own products. It is not a marketplace: there are no seller-submission forms, no third-party listings, and no paid placement system.
+A responsive storefront for one seller. It is not a marketplace and has no seller submissions or third-party listings.
 
-## Current storefront
+## Current product
+- Doritos — 2 SAR per bag
+- Listed stock: 3 bags
 
-- Red Takis — 7 SAR per pack
-- Blue Heat Takis — 7 SAR per pack
-- Responsive product cards and add-to-bag interactions
-- Quantity controls and a live total
-- Generates a copyable order message
-
-## Important order limitations
-
-This is a static storefront. It does not take payments, reserve inventory, or send orders automatically. Customers must copy the generated message and contact the seller through their existing contact method. Add your preferred public contact details before sharing the site widely.
-
-Product names, availability, and prices should be checked by the seller before going live.
+## Order limitations
+This static storefront does not take payments, reserve inventory across visitors, or send orders automatically. Customers can copy the generated order message and contact the seller directly. The displayed stock is not a live shared inventory system.
 
 ## Deploy
-
-Import this repository into Vercel and deploy as a static site with no build command and no output directory, or enable GitHub Pages for the main branch/root.
+Import into Vercel as a static site (no build command or output directory), or enable GitHub Pages for the main branch/root.
