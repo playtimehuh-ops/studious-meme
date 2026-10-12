@@ -69,7 +69,6 @@ $("#makeOrder").addEventListener("click", async()=>{
  try {
    const customerName=$("#customerName").value.trim();
    if(!customerName){$("#customerName").focus();throw new Error("Please enter your name before placing the order.");}
-   snapWindow=window.open("about:blank","_blank");
    const {data,error}=await supabaseClient.rpc("snack_drop_place_order",{
      p_quantity:cart.doritos,
      p_note:$("#orderNote").value.trim(),
@@ -78,23 +77,22 @@ $("#makeOrder").addEventListener("click", async()=>{
    if(error) throw error;
    const result=Array.isArray(data)?data[0]:data;
    if(!result || !result.order_id) throw new Error("The order was not confirmed by the database.");
-   const receipt=["SNACK DROP ORDER CONFIRMED", "Name: "+result.customer_name, "Verification code: "+result.verification_code, "Doritos x "+result.quantity+" = "+money(result.total_sar), "Status: Pending", "Remaining stock: "+result.remaining_stock+" bags", "", "Contact the seller on Snapchat: notcandymuffin", "Send your verification code so the seller can identify your order."].join("\n");
+   const receipt=["SNACK DROP ORDER CONFIRMED","Name: "+result.customer_name,"Verification code: "+result.verification_code,"Doritos x "+result.quantity+" = "+money(result.total_sar),"Status: Pending","Remaining stock: "+result.remaining_stock+" bags","","Contact the seller on Snapchat: notcandymuffin","Send the verification code so the seller can identify your order."].join("\n");
    cart.doritos=0;
    STOCK=Number(result.remaining_stock);
    $("#orderNote").value="";
    $("#customerName").value="";
    updateCart();
    orderText=receipt;
-   $("#orderNotice").textContent=receipt+"\n\nOrder saved! Contact Snapchat: notcandymuffin and send your verification code to confirm pickup/payment.";
+   $("#orderNotice").textContent=receipt+"\n\nYour order is saved. Copy the verification code, then tap Open Snapchat to message the seller.";
    $("#orderNotice").className="notice show ok";
    $("#copyOrder").style.display="inline-flex";
    $("#snapchatLink").style.display="inline-flex";
    $("#stockCount").textContent=STOCK+" bags";
    $("#countLabel").textContent="1 product · "+STOCK+" bags in stock";
    $("#heroStock").textContent=STOCK+" bags";
-   if(snapWindow) snapWindow.location.href="https://www.snapchat.com/add/notcandymuffin";
  } catch(error) {
-   if(snapWindow && !snapWindow.closed) snapWindow.close();
+   $("#snapchatLink").style.display="none";
    $("#orderNotice").textContent="Could not place order: "+(error.message||"Please try again.");
    $("#orderNotice").className="notice show bad";
  } finally {
@@ -103,7 +101,8 @@ $("#makeOrder").addEventListener("click", async()=>{
  }
 });
 $("#copyOrder").addEventListener("click",async()=>{
- try{await navigator.clipboard.writeText(orderText);$("#orderNotice").textContent="Copied! Send this receipt to Snapchat: notcandymuffin."}
+ const match=orderText.match(/Verification code: ([A-Z0-9]+)/);const code=match?match[1]:orderText;
+ try{await navigator.clipboard.writeText(code);$("#orderNotice").textContent="Verification code "+code+" copied! Tap Open Snapchat to message the seller."}
  catch(e){$("#orderNotice").textContent=orderText+"\n\nClipboard access was blocked. Select and copy the receipt manually, then send it to Snapchat: notcandymuffin."}
  $("#orderNotice").className="notice show ok";
 });
