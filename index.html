@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="topline"><div class="wrap"><span><i class="dot"></i>ONE SELLER · MY OWN SHOP</span><span>Simple prices · No marketplace fees</span></div></div>
-<header class="wrap nav"><a class="brand" href="#" aria-label="Snack Drop home"><span class="mark">↗</span> snack drop<span style="color:#8b8e82">.</span></a><nav class="navlinks"><a href="#shop">Shop snacks</a><a href="#about">About</a><a href="#rewards">Rewards</a><button class="btn" id="openCart">My bag <span class="cart-count" id="cartCount">0</span></button></nav></header>
+<header class="wrap nav"><a class="brand" href="#" aria-label="Snack Drop home"><span class="mark">↗</span> snack drop<span style="color:#8b8e82">.</span></a><nav class="navlinks"><a href="#shop">Shop snacks</a><a href="#about">About</a><a href="#rewards">Rewards</a><a href="#seller-orders">Seller</a><button class="btn" id="openCart">My bag <span class="cart-count" id="cartCount">0</span></button></nav></header>
 <main>
 <section class="wrap hero">
 <div><div class="eyebrow">Your snack stop</div><h1>Big crunch. <em>No fuss.</em></h1><p>Welcome to my snack shop. Right now, I sell Doritos only. Add Doritos to your bag and place an order saved directly to the shop. One seller, one shop — no outside listings.</p><div class="hero-actions"><a class="btn" href="#shop">Shop my snacks <span>↓</span></a><button class="btn light" id="heroCart">View your bag ↗</button></div><div class="hero-note">Every product listed here is sold by me. Prices shown in SAR.</div></div>
@@ -26,6 +26,7 @@
 <div class="single-seller"><span class="mark" style="flex:0 0 34px">✓</span><span><strong>One seller, no marketplace.</strong> I currently sell Doritos only. No public seller submissions.</span></div>
 </section>
 <section class="wrap section" id="rewards"><div class="section-head"><div><div class="eyebrow">Snack Drop loyalty</div><h2>Shop snacks. Earn points.</h2></div><span class="points-earn">100 points per bag</span></div><p style="color:var(--muted);font-size:14px;line-height:1.7;max-width:700px;margin:-8px 0 22px">Earn 100 points per bag when the seller confirms your order. Snack Drop adds the points automatically to your loyalty balance when the order status is changed to Confirmed.</p><div class="rewards-grid"><article class="reward-card"><div class="reward-icon">R$</div><h3>5 Robux</h3><div class="reward-points">500 points</div><p>Equivalent to 5 Doritos bags purchased and paid for. Reward is fulfilled manually after the seller confirms availability.</p></article><article class="reward-card"><div class="reward-icon"></div><h3>US$2 Apple Gift Card</h3><div class="reward-points">2,000 points</div><p>Equivalent to 20 bags purchased and paid for. Apple gift cards can be region-locked; the code's country/region must match the recipient's Apple Account.</p></article><article class="reward-card"><div class="reward-icon">★</div><h3>How to redeem</h3><div class="reward-points">Message the seller</div><p>Keep your order verification codes and ask the seller to confirm your points and reward availability before expecting a reward.</p></article></div><article class="reward-card" style="margin-top:16px"><h3>Check your points</h3><p>Enter an order verification code to check the balance.</p><form id="pointsLookup" style="display:flex;gap:8px;flex-wrap:wrap"><input id="pointsCode" required minlength="6" maxlength="12" placeholder="Order verification code" style="flex:1;min-width:180px;padding:12px;border:1px solid var(--line);border-radius:10px"><button class="btn" type="submit">Check points</button></form><div id="pointsResult" class="notice" role="status"></div></article><div class="rewards-note"><strong>Reward availability:</strong> Rewards are not automatic or guaranteed until confirmed by the seller. Snack Drop currently has limited stock. Points are automatically credited when the seller marks an order Confirmed, and credited only once per order. If a confirmed order is later cancelled, its points are reversed. Points are not cash.</div></section>
+<section class="wrap section" id="seller-orders"><div class="section-head"><div><div class="eyebrow">Private seller tools</div><h2>Manage orders.</h2></div><span class="points-earn">Seller only</span></div><div class="reward-card"><div id="sellerLoginPanel"><h3>Seller sign in</h3><p>Sign in using the seller account already authorized for Snack Drop.</p><form id="sellerLoginForm"><div class="field"><label for="sellerEmail">Email</label><input id="sellerEmail" type="email" autocomplete="username" required placeholder="Seller email"></div><div class="field"><label for="sellerPassword">Password</label><input id="sellerPassword" type="password" autocomplete="current-password" required placeholder="Password"></div><button class="btn" type="submit" style="margin-top:14px">Sign in</button></form><div id="sellerLoginNotice" class="notice" role="status"></div></div><div id="sellerDashboard" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div><h3>Orders</h3><p>Confirm an order after you've verified it. Confirmation automatically awards 100 points per bag, once per order.</p></div><button class="btn light" id="sellerSignOut" type="button">Sign out</button></div><div id="sellerOrdersList" class="cart-lines"><div class="empty">Loading orders…</div></div><div id="sellerAdminNotice" class="notice" role="status"></div></div></div></section>
 <section class="how" id="about"><div class="wrap"><div class="eyebrow">How Snack Drop works</div><h2>Pick it. Check it.<br>Send your order.</h2><div class="steps"><article class="step"><div class="step-num">01 / PICK</div><h3>Choose your snacks.</h3><p>Add Doritos to your bag. The shop displays the live available stock.</p></article><article class="step"><div class="step-num">02 / REVIEW</div><h3>Check your total.</h3><p>Your bag calculates the price at 2 SAR per bag, up to the listed stock.</p></article><article class="step"><div class="step-num">03 / MESSAGE</div><h3>Prepare the order.</h3><p>Place your order to get a verification code, then contact Snapchat: notcandymuffin.</p></article></div></div></section>
 <section class="wrap cta"><div class="band-inner"><div><h2>Ready for a snack run?</h2><p>Add your favourites and check the total in your bag.</p></div><button class="btn" id="ctaCart">Open my bag ↗</button></div></section>
 </main>
@@ -122,6 +123,39 @@ async function loadInventory(){
    $("#orderNotice").textContent="Could not load live stock. Refresh before ordering.";
  }
 }
+function setSellerView(yes){$("#sellerLoginPanel").style.display=yes?"none":"block";$("#sellerDashboard").style.display=yes?"block":"none";}
+async function refreshSellerOrders(){
+ const list=$("#sellerOrdersList"),notice=$("#sellerAdminNotice");list.innerHTML='<div class="empty">Loading orders…</div>';
+ try{
+  const {data:admin,error:adminError}=await supabaseClient.rpc("snack_drop_is_admin");
+  if(adminError)throw adminError;
+  if(admin!==true){setSellerView(false);throw new Error("This account isn't authorized as the Snack Drop seller.");}
+  const {data,error}=await supabaseClient.from("snack_drop_orders").select("id,customer_name,quantity,total_sar,status,verification_code,created_at,note").order("created_at",{ascending:false}).limit(50);
+  if(error)throw error;
+  list.innerHTML="";
+  if(!data||!data.length){list.innerHTML='<div class="empty">No orders yet.</div>';return;}
+  data.forEach(order=>{
+   const card=document.createElement("article");card.className="cart-line";card.style.display="block";
+   const title=document.createElement("strong");title.textContent=order.customer_name+" · "+order.quantity+" bag(s) · "+order.total_sar+" SAR";
+   const details=document.createElement("small");details.style.cssText="display:block;margin:7px 0";details.textContent="Code: "+order.verification_code+" · Status: "+order.status+" · "+new Date(order.created_at).toLocaleString();
+   const note=document.createElement("small");note.style.display="block";note.textContent=order.note?"Note: "+order.note:"";
+   const actions=document.createElement("div");actions.style.cssText="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px";
+   [["Confirm order","confirmed"],["Mark fulfilled","fulfilled"],["Cancel order","cancelled"]].forEach(([label,status])=>{const b=document.createElement("button");b.type="button";b.className="btn "+(status==="confirmed"?"":"light");b.textContent=label;b.disabled=order.status===status||order.status==="cancelled"||order.status==="fulfilled";b.addEventListener("click",()=>changeOrderStatus(order.id,status,b));actions.appendChild(b);});
+   card.append(title,details,note,actions);list.appendChild(card);
+  });
+ }catch(err){list.innerHTML="";notice.className="notice show bad";notice.textContent=err.message||"Unable to load orders.";}
+}
+async function changeOrderStatus(id,status,button){
+ button.disabled=true;button.textContent="Saving…";
+ try{const {error}=await supabaseClient.from("snack_drop_orders").update({status}).eq("id",id);if(error)throw error;
+ const notice=$("#sellerAdminNotice");notice.className="notice show ok";notice.textContent=status==="confirmed"?"Order confirmed. Points were credited automatically.":status==="cancelled"?"Order cancelled. Previously awarded points are reversed.":"Order marked fulfilled.";
+ await refreshSellerOrders();
+ }catch(err){button.disabled=false;button.textContent="Try again";const n=$("#sellerAdminNotice");n.className="notice show bad";n.textContent=err.message||"Could not update order.";}
+}
+$("#sellerLoginForm").addEventListener("submit",async e=>{e.preventDefault();const n=$("#sellerLoginNotice");n.className="notice show";n.textContent="Signing in…";const {error}=await supabaseClient.auth.signInWithPassword({email:$("#sellerEmail").value.trim(),password:$("#sellerPassword").value});if(error){n.className="notice show bad";n.textContent="Sign-in failed. Check your credentials.";return;}const {data}=await supabaseClient.auth.getSession();if(data.session){setSellerView(true);await refreshSellerOrders();}});
+$("#sellerSignOut").addEventListener("click",async()=>{await supabaseClient.auth.signOut();setSellerView(false);});
+supabaseClient.auth.onAuthStateChange((_event,session)=>{if(session){setSellerView(true);setTimeout(refreshSellerOrders,0);}else setSellerView(false);});
+supabaseClient.auth.getSession().then(({data})=>{if(data.session){setSellerView(true);refreshSellerOrders();}else setSellerView(false);});
 $("#pointsLookup").addEventListener("submit",async e=>{e.preventDefault();const out=$("#pointsResult");out.className="notice show";out.textContent="Checking…";try{const {data,error}=await supabaseClient.rpc("snack_drop_points_by_code",{p_verification_code:$("#pointsCode").value.trim().toUpperCase()});if(error)throw error;const row=Array.isArray(data)?data[0]:data;if(!row){out.className="notice show bad";out.textContent="No points balance found for that code.";return;}out.className="notice show ok";out.textContent=row.customer_name+" — "+Number(row.points_balance)+" points";}catch(error){out.className="notice show bad";out.textContent="Could not check points. Try again.";}});
 $("#year").textContent=new Date().getFullYear();updateCart();loadInventory();
 </script>
