@@ -16,22 +16,27 @@
 <header class="wrap nav"><a class="brand" href="#" aria-label="Snack Drop home"><span class="mark">↗</span> snack drop<span style="color:#8b8e82">.</span></a><nav class="navlinks"><a href="#shop">Shop snacks</a><a href="#about">About</a><button class="btn" id="openCart">My bag <span class="cart-count" id="cartCount">0</span></button></nav></header>
 <main>
 <section class="wrap hero">
-<div><div class="eyebrow">Your snack stop</div><h1>Big crunch. <em>No fuss.</em></h1><p>Welcome to my snack shop. Right now, I sell Doritos only. Add a bag to your selection and prepare an order message. One seller, one shop — no outside listings.</p><div class="hero-actions"><a class="btn" href="#shop">Shop my snacks <span>↓</span></a><button class="btn light" id="heroCart">View your bag ↗</button></div><div class="hero-note">Every product listed here is sold by me. Prices shown in SAR.</div></div>
-<div class="hero-art" aria-label="Snack shop graphic"><div class="orbit"><div class="center-stamp">SNACK<br>DROP<br><span style="font-family:Georgia,serif;font-style:italic;font-weight:500">CRUNCH</span><br>TIME.</div></div><div class="float-card fc1"><b>Doritos</b>Crunchy cheesy flavour</div><div class="float-card fc2"><b>Current stock</b>9 bags</div><div class="float-card fc3">2 SAR / BAG</div></div>
+<div><div class="eyebrow">Your snack stop</div><h1>Big crunch. <em>No fuss.</em></h1><p>Welcome to my snack shop. Right now, I sell Doritos only. Add Doritos to your bag and place an order saved directly to the shop. One seller, one shop — no outside listings.</p><div class="hero-actions"><a class="btn" href="#shop">Shop my snacks <span>↓</span></a><button class="btn light" id="heroCart">View your bag ↗</button></div><div class="hero-note">Every product listed here is sold by me. Prices shown in SAR.</div></div>
+<div class="hero-art" aria-label="Snack shop graphic"><div class="orbit"><div class="center-stamp">SNACK<br>DROP<br><span style="font-family:Georgia,serif;font-style:italic;font-weight:500">CRUNCH</span><br>TIME.</div></div><div class="float-card fc1"><b>Doritos</b>Crunchy cheesy flavour</div><div class="float-card fc2"><b>Current stock</b><span id="heroStock">Checking…</span></div><div class="float-card fc3">2 SAR / BAG</div></div>
 </section>
-<section class="wrap section" id="shop"><div class="section-head"><div><div class="eyebrow">The shop</div><h2>Pick your crunch.</h2></div><p id="countLabel">1 product · 9 bags in stock</p></div>
+<section class="wrap section" id="shop"><div class="section-head"><div><div class="eyebrow">The shop</div><h2>Pick your crunch.</h2></div><p id="countLabel">1 product · checking stock…</p></div>
 <div class="products">
-<article class="product"><div class="product-art" style="background:#ffe3a6"><span class="flavour">Only product</span><div class="bag" style="background:#f7a51b"><strong style="font-size:24px">DORITOS</strong><span>CRUNCH TIME</span></div></div><div class="product-info"><h3>Doritos</h3><p>Crunchy Doritos bags, sold by me. Only 9 bags are currently listed in stock.</p><div class="product-bottom"><div class="price">2 <small>SAR / bag</small></div><button class="btn add" data-product="doritos">Add to bag +</button></div><p style="min-height:0;margin:12px 0 0;font-size:11px">Available: <strong id="stockCount">9 bags</strong></p></div></article>
+<article class="product"><div class="product-art" style="background:#ffe3a6"><span class="flavour">Only product</span><div class="bag" style="background:#f7a51b"><strong style="font-size:24px">DORITOS</strong><span>CRUNCH TIME</span></div></div><div class="product-info"><h3>Doritos</h3><p>Crunchy Doritos bags, sold by me. Available stock is checked live when you place an order.</p><div class="product-bottom"><div class="price">2 <small>SAR / bag</small></div><button class="btn add" data-product="doritos">Add to bag +</button></div><p style="min-height:0;margin:12px 0 0;font-size:11px">Available: <strong id="stockCount">9 bags</strong></p></div></article>
 </div></div>
 <div class="single-seller"><span class="mark" style="flex:0 0 34px">✓</span><span><strong>One seller, no marketplace.</strong> I currently sell Doritos only. No public seller submissions.</span></div>
 </section>
-<section class="how" id="about"><div class="wrap"><div class="eyebrow">How Snack Drop works</div><h2>Pick it. Check it.<br>Send your order.</h2><div class="steps"><article class="step"><div class="step-num">01 / PICK</div><h3>Choose your snacks.</h3><p>Add Doritos to your bag. The shop currently has three bags listed.</p></article><article class="step"><div class="step-num">02 / REVIEW</div><h3>Check your total.</h3><p>Your bag calculates the price at 2 SAR per bag, up to the listed stock.</p></article><article class="step"><div class="step-num">03 / MESSAGE</div><h3>Prepare the order.</h3><p>Generate and copy an order message. This demo does not take payments or send orders automatically.</p></article></div></div></section>
+<section class="how" id="about"><div class="wrap"><div class="eyebrow">How Snack Drop works</div><h2>Pick it. Check it.<br>Send your order.</h2><div class="steps"><article class="step"><div class="step-num">01 / PICK</div><h3>Choose your snacks.</h3><p>Add Doritos to your bag. The shop displays the live available stock.</p></article><article class="step"><div class="step-num">02 / REVIEW</div><h3>Check your total.</h3><p>Your bag calculates the price at 2 SAR per bag, up to the listed stock.</p></article><article class="step"><div class="step-num">03 / MESSAGE</div><h3>Prepare the order.</h3><p>Place your order to save it to the shop. Payment and pickup are arranged separately.</p></article></div></div></section>
 <section class="wrap cta"><div class="band-inner"><div><h2>Ready for a snack run?</h2><p>Add your favourites and check the total in your bag.</p></div><button class="btn" id="ctaCart">Open my bag ↗</button></div></section>
 </main>
 <footer class="footer"><div class="wrap"><span>© <span id="year"></span> Snack Drop</span><span>One shop · My products · Prices in SAR</span><a href="#shop">Back to snacks ↑</a></div></footer>
-<div class="modal-backdrop" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle"><div class="modal"><div class="modal-head"><div><div class="eyebrow">Your selection</div><h2 id="cartTitle">Your snack bag.</h2></div><button class="close" id="closeCart" aria-label="Close bag">×</button></div><p>Review quantities and prepare your order message. Nothing is purchased or sent automatically.</p><div class="cart-lines" id="cartLines"></div><div class="total"><span>Total</span><span id="cartTotal">0 SAR</span></div><div class="field"><label for="orderNote">Optional order note</label><textarea id="orderNote" maxlength="180" placeholder="e.g. preferred pickup time — don't include private details"></textarea></div><button class="btn" id="makeOrder" style="width:100%;margin-top:16px">Generate order message ↗</button><div class="notice" id="orderNotice" role="status"></div><button class="btn light" id="copyOrder" style="width:100%;margin-top:9px;display:none">Copy order message</button><p style="font-size:11px">Ordering is not connected to a payment or messaging service yet. After copying, send the message to the seller through your usual contact method.</p></div></div>
+<div class="modal-backdrop" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle"><div class="modal"><div class="modal-head"><div><div class="eyebrow">Your selection</div><h2 id="cartTitle">Your snack bag.</h2></div><button class="close" id="closeCart" aria-label="Close bag">×</button></div><p>Review your order and save it to the shop. No payment is collected online.</p><div class="cart-lines" id="cartLines"></div><div class="total"><span>Total</span><span id="cartTotal">0 SAR</span></div><div class="field"><label for="orderNote">Optional order note</label><textarea id="orderNote" maxlength="180" placeholder="e.g. preferred pickup time — don't include private details"></textarea></div><button class="btn" id="makeOrder" style="width:100%;margin-top:16px">Place order · Save to shop ↗</button><div class="notice" id="orderNotice" role="status"></div><button class="btn light" id="copyOrder" style="width:100%;margin-top:9px;display:none">Copy order message</button><p style="font-size:11px">Your order is saved to the shop database. This does not collect payment; confirm payment and pickup directly with the seller.</p></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-const PRICE=2, STOCK=9;
+const SUPABASE_URL="https://jtstdajaaasucialvsfs.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_1O9wO2dY_ZFFfdPFGaLeMA_3oaW2Hs-";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+const PRICE=2;
+let STOCK=9;
 const products={doritos:{name:"Doritos",price:PRICE}};
 const cart={doritos:0};
 const $=s=>document.querySelector(s);
@@ -52,19 +57,61 @@ $("#openCart").addEventListener("click",openCart);$("#heroCart").addEventListene
 $("#cartModal").addEventListener("click",e=>{if(e.target===$("#cartModal"))closeCart()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCart()});
 $("#cartLines").addEventListener("click",e=>{const b=e.target.closest("[data-change]");if(!b)return;cart.doritos=Math.max(0,Math.min(STOCK,cart.doritos+Number(b.dataset.delta)));updateCart()});
-$("#makeOrder").addEventListener("click",()=>{
+$("#makeOrder").addEventListener("click", async()=>{
  if(!cart.doritos)return;
- orderText="SNACK DROP ORDER\nDoritos x "+cart.doritos+" = "+money(cart.doritos*PRICE)+"\nTotal: "+money(cart.doritos*PRICE);
- const note=$("#orderNote").value.trim();if(note)orderText+="\nNote: "+note;
- orderText+="\n\nPlease confirm availability and pickup details.";
- $("#orderNotice").textContent="Order message ready. Copy it and send it to the seller yourself. No order has been placed yet.";
- $("#orderNotice").className="notice show ok";$("#copyOrder").style.display="inline-flex";
+ const button=$("#makeOrder");
+ button.disabled=true;
+ button.textContent="Saving order…";
+ $("#orderNotice").textContent="Checking stock and saving your order…";
+ $("#orderNotice").className="notice show";
+ try {
+   const {data,error}=await supabaseClient.rpc("snack_drop_place_order",{
+     p_quantity:cart.doritos,
+     p_note:$("#orderNote").value.trim()
+   });
+   if(error) throw error;
+   const result=Array.isArray(data)?data[0]:data;
+   if(!result || !result.order_id) throw new Error("The order was not confirmed by the database.");
+   const receipt="SNACK DROP ORDER CONFIRMED\\nOrder ID: "+result.order_id+"\\nDoritos x "+result.quantity+" = "+money(result.total_sar)+"\\nStatus: Pending\\nRemaining stock: "+result.remaining_stock+" bags";
+   $("#orderNotice").textContent=receipt+"\\n\\nYour order is saved. Contact the seller to confirm pickup and payment.";
+   $("#orderNotice").className="notice show ok";
+   orderText=receipt;
+   $("#copyOrder").style.display="inline-flex";
+   cart.doritos=0;
+   STOCK=Number(result.remaining_stock);
+   $("#orderNote").value="";
+   updateCart();
+   $("#orderNotice").textContent=receipt+"\\n\\nYour order is saved. Contact the seller to confirm pickup and payment.";
+   $("#orderNotice").className="notice show ok";
+   await loadInventory();
+ } catch(error) {
+   $("#orderNotice").textContent="Could not place order: "+(error.message||"Please try again.");
+   $("#orderNotice").className="notice show bad";
+ } finally {
+   button.textContent="Place order · Save to shop ↗";
+   button.disabled=cart.doritos===0;
+ }
 });
 $("#copyOrder").addEventListener("click",async()=>{
  try{await navigator.clipboard.writeText(orderText);$("#orderNotice").textContent="Copied! Paste the message into your chat with the seller."}
  catch(e){$("#orderNotice").textContent=orderText+"\n\nClipboard access was blocked. Select and copy the message manually."}
  $("#orderNotice").className="notice show ok";
 });
-$("#year").textContent=new Date().getFullYear();updateCart();
+async function loadInventory(){
+ try {
+   const {data,error}=await supabaseClient.from("snack_drop_inventory").select("available_quantity,unit_price_sar").eq("product","Doritos").single();
+   if(error) throw error;
+   STOCK=Number(data.available_quantity);
+   $("#stockCount").textContent=STOCK+" bags";
+   $("#countLabel").textContent="1 product · "+STOCK+" bags in stock";
+   $("#heroStock").textContent=STOCK+" bags";
+   updateCart();
+ } catch(error) {
+   $("#heroStock").textContent="Unavailable";
+   $("#countLabel").textContent="1 product · stock check unavailable";
+   $("#orderNotice").textContent="Could not load live stock. Refresh before ordering.";
+ }
+}
+$("#year").textContent=new Date().getFullYear();updateCart();loadInventory();
 </script>
 </body></html>
