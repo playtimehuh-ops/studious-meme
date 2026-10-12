@@ -25,11 +25,11 @@
 </div></div>
 <div class="single-seller"><span class="mark" style="flex:0 0 34px">✓</span><span><strong>One seller, no marketplace.</strong> I currently sell Doritos only. No public seller submissions.</span></div>
 </section>
-<section class="how" id="about"><div class="wrap"><div class="eyebrow">How Snack Drop works</div><h2>Pick it. Check it.<br>Send your order.</h2><div class="steps"><article class="step"><div class="step-num">01 / PICK</div><h3>Choose your snacks.</h3><p>Add Doritos to your bag. The shop displays the live available stock.</p></article><article class="step"><div class="step-num">02 / REVIEW</div><h3>Check your total.</h3><p>Your bag calculates the price at 2 SAR per bag, up to the listed stock.</p></article><article class="step"><div class="step-num">03 / MESSAGE</div><h3>Prepare the order.</h3><p>Place your order to save it to the shop. Payment and pickup are arranged separately.</p></article></div></div></section>
+<section class="how" id="about"><div class="wrap"><div class="eyebrow">How Snack Drop works</div><h2>Pick it. Check it.<br>Send your order.</h2><div class="steps"><article class="step"><div class="step-num">01 / PICK</div><h3>Choose your snacks.</h3><p>Add Doritos to your bag. The shop displays the live available stock.</p></article><article class="step"><div class="step-num">02 / REVIEW</div><h3>Check your total.</h3><p>Your bag calculates the price at 2 SAR per bag, up to the listed stock.</p></article><article class="step"><div class="step-num">03 / MESSAGE</div><h3>Prepare the order.</h3><p>Place your order to get a verification code, then contact Snapchat: notcandymuffin.</p></article></div></div></section>
 <section class="wrap cta"><div class="band-inner"><div><h2>Ready for a snack run?</h2><p>Add your favourites and check the total in your bag.</p></div><button class="btn" id="ctaCart">Open my bag ↗</button></div></section>
 </main>
 <footer class="footer"><div class="wrap"><span>© <span id="year"></span> Snack Drop</span><span>One shop · My products · Prices in SAR</span><a href="#shop">Back to snacks ↑</a></div></footer>
-<div class="modal-backdrop" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle"><div class="modal"><div class="modal-head"><div><div class="eyebrow">Your selection</div><h2 id="cartTitle">Your snack bag.</h2></div><button class="close" id="closeCart" aria-label="Close bag">×</button></div><p>Review your order and save it to the shop. No payment is collected online.</p><div class="cart-lines" id="cartLines"></div><div class="total"><span>Total</span><span id="cartTotal">0 SAR</span></div><div class="field"><label for="orderNote">Optional order note</label><textarea id="orderNote" maxlength="180" placeholder="e.g. preferred pickup time — don't include private details"></textarea></div><button class="btn" id="makeOrder" style="width:100%;margin-top:16px">Place order · Save to shop ↗</button><div class="notice" id="orderNotice" role="status"></div><button class="btn light" id="copyOrder" style="width:100%;margin-top:9px;display:none">Copy order message</button><p style="font-size:11px">Your order is saved to the shop database. This does not collect payment; confirm payment and pickup directly with the seller.</p></div></div>
+<div class="modal-backdrop" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle"><div class="modal"><div class="modal-head"><div><div class="eyebrow">Your selection</div><h2 id="cartTitle">Your snack bag.</h2></div><button class="close" id="closeCart" aria-label="Close bag">×</button></div><p>Review your order and save it to the shop. No payment is collected online.</p><div class="cart-lines" id="cartLines"></div><div class="total"><span>Total</span><span id="cartTotal">0 SAR</span></div><div class="field"><label for="orderNote">Optional order note</label><textarea id="orderNote" maxlength="180" placeholder="e.g. preferred pickup time — don't include private details"></textarea></div><button class="btn" id="makeOrder" style="width:100%;margin-top:16px">Place order · Save to shop ↗</button><div class="notice" id="orderNotice" role="status"></div><button class="btn light" id="copyOrder" style="width:100%;margin-top:9px;display:none">Copy order message</button><p style="font-size:11px">After ordering, save your verification code and send it to Snapchat: notcandymuffin so the seller can identify your order. Payment is not collected online.</p></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 const SUPABASE_URL="https://jtstdajaaasucialvsfs.supabase.co";
@@ -72,8 +72,8 @@ $("#makeOrder").addEventListener("click", async()=>{
    if(error) throw error;
    const result=Array.isArray(data)?data[0]:data;
    if(!result || !result.order_id) throw new Error("The order was not confirmed by the database.");
-   const receipt="SNACK DROP ORDER CONFIRMED\\nOrder ID: "+result.order_id+"\\nDoritos x "+result.quantity+" = "+money(result.total_sar)+"\\nStatus: Pending\\nRemaining stock: "+result.remaining_stock+" bags";
-   $("#orderNotice").textContent=receipt+"\\n\\nYour order is saved. Contact the seller to confirm pickup and payment.";
+   const receipt="SNACK DROP ORDER CONFIRMED\\nVerification code: "+result.verification_code+"\\nDoritos x "+result.quantity+" = "+money(result.total_sar)+"\\nStatus: Pending\\nRemaining stock: "+result.remaining_stock+" bags\\n\\nContact the seller on Snapchat: notcandymuffin\\nSend your verification code so the seller can identify your order.";
+   $("#orderNotice").textContent=receipt+"\\n\\nOrder saved! Contact Snapchat: notcandymuffin. Send the verification code above so the seller can identify your order and confirm pickup/payment.";
    $("#orderNotice").className="notice show ok";
    orderText=receipt;
    $("#copyOrder").style.display="inline-flex";
@@ -93,8 +93,8 @@ $("#makeOrder").addEventListener("click", async()=>{
  }
 });
 $("#copyOrder").addEventListener("click",async()=>{
- try{await navigator.clipboard.writeText(orderText);$("#orderNotice").textContent="Copied! Paste the message into your chat with the seller."}
- catch(e){$("#orderNotice").textContent=orderText+"\n\nClipboard access was blocked. Select and copy the message manually."}
+ try{await navigator.clipboard.writeText(orderText);$("#orderNotice").textContent="Copied! Send this receipt to Snapchat: notcandymuffin."}
+ catch(e){$("#orderNotice").textContent=orderText+"\n\nClipboard access was blocked. Select and copy the receipt manually, then send it to Snapchat: notcandymuffin."}
  $("#orderNotice").className="notice show ok";
 });
 async function loadInventory(){
