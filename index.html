@@ -29,7 +29,8 @@
 <section class="wrap cta"><div class="band-inner"><div><h2>Ready for a snack run?</h2><p>Add your favourites and check the total in your bag.</p></div><button class="btn" id="ctaCart">Open my bag ↗</button></div></section>
 </main>
 <footer class="footer"><div class="wrap"><span>© <span id="year"></span> Snack Drop</span><span>One shop · My products · Prices in SAR</span><a href="#shop">Back to snacks ↑</a></div></footer>
-<div class="modal-backdrop" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle"><div class="modal"><div class="modal-head"><div><div class="eyebrow">Your selection</div><h2 id="cartTitle">Your snack bag.</h2></div><button class="close" id="closeCart" aria-label="Close bag">×</button></div><p>Review your order and save it to the shop. No payment is collected online.</p><div class="cart-lines" id="cartLines"></div><div class="total"><span>Total</span><span id="cartTotal">0 SAR</span></div><div class="field"><label for="orderNote">Optional order note</label><textarea id="orderNote" maxlength="180" placeholder="e.g. preferred pickup time — don't include private details"></textarea></div><button class="btn" id="makeOrder" style="width:100%;margin-top:16px">Place order · Save to shop ↗</button><div class="notice" id="orderNotice" role="status"></div><button class="btn light" id="copyOrder" style="width:100%;margin-top:9px;display:none">Copy order message</button><p style="font-size:11px">After ordering, save your verification code and send it to Snapchat: notcandymuffin so the seller can identify your order. Payment is not collected online.</p></div></div>
+<div class="modal-backdrop" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle"><div class="modal"><div class="modal-head"><div><div class="eyebrow">Your selection</div><h2 id="cartTitle">Your snack bag.</h2></div><button class="close" id="closeCart" aria-label="Close bag">×</button></div><p>Review your order and save it to the shop. No payment is collected online.</p><div class="cart-lines" id="cartLines"></div><div class="total"><span>Total</span><span id="cartTotal">0 SAR</span></div><div class="field"><label for="customerName">Your name <span aria-hidden="true">*</span></label><input id="customerName" name="customerName" type="text" maxlength="60" autocomplete="name" required placeholder="Enter your name"></div>
+<div class="field"><label for="orderNote">Optional order note</label><textarea id="orderNote" maxlength="180" placeholder="e.g. preferred pickup time — don't include private details"></textarea></div><button class="btn" id="makeOrder" style="width:100%;margin-top:16px">Place order · Save to shop ↗</button><div class="notice" id="orderNotice" role="status"></div><button class="btn light" id="copyOrder" style="width:100%;margin-top:9px;display:none">Copy order message</button><p style="font-size:11px">After ordering, save your verification code and send it to Snapchat: notcandymuffin so the seller can identify your order. Payment is not collected online.</p></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 const SUPABASE_URL="https://jtstdajaaasucialvsfs.supabase.co";
@@ -65,14 +66,17 @@ $("#makeOrder").addEventListener("click", async()=>{
  $("#orderNotice").textContent="Checking stock and saving your order…";
  $("#orderNotice").className="notice show";
  try {
+   const customerName=$("#customerName").value.trim();
+   if(!customerName){$("#customerName").focus();throw new Error("Please enter your name before placing the order.");}
    const {data,error}=await supabaseClient.rpc("snack_drop_place_order",{
      p_quantity:cart.doritos,
-     p_note:$("#orderNote").value.trim()
+     p_note:$("#orderNote").value.trim(),
+     p_customer_name:customerName
    });
    if(error) throw error;
    const result=Array.isArray(data)?data[0]:data;
    if(!result || !result.order_id) throw new Error("The order was not confirmed by the database.");
-   const receipt="SNACK DROP ORDER CONFIRMED\\nVerification code: "+result.verification_code+"\\nDoritos x "+result.quantity+" = "+money(result.total_sar)+"\\nStatus: Pending\\nRemaining stock: "+result.remaining_stock+" bags\\n\\nContact the seller on Snapchat: notcandymuffin\\nSend your verification code so the seller can identify your order.";
+   const receipt="SNACK DROP ORDER CONFIRMED\\nName: "+result.customer_name+"\\nVerification code: "+result.verification_code+"\\nDoritos x "+result.quantity+" = "+money(result.total_sar)+"\\nStatus: Pending\\nRemaining stock: "+result.remaining_stock+" bags\\n\\nContact the seller on Snapchat: notcandymuffin\\nSend your verification code so the seller can identify your order.";
    $("#orderNotice").textContent=receipt+"\\n\\nOrder saved! Contact Snapchat: notcandymuffin. Send the verification code above so the seller can identify your order and confirm pickup/payment.";
    $("#orderNotice").className="notice show ok";
    orderText=receipt;
@@ -80,8 +84,9 @@ $("#makeOrder").addEventListener("click", async()=>{
    cart.doritos=0;
    STOCK=Number(result.remaining_stock);
    $("#orderNote").value="";
+   $("#customerName").value="";
    updateCart();
-   $("#orderNotice").textContent=receipt+"\\n\\nYour order is saved. Contact the seller to confirm pickup and payment.";
+   $("#orderNotice").textContent=receipt+"\\n\\nOrder saved! Contact Snapchat: notcandymuffin and send your verification code.";
    $("#orderNotice").className="notice show ok";
    await loadInventory();
  } catch(error) {
