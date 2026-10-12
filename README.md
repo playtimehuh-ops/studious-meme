@@ -1,35 +1,21 @@
-# SideStreet — Free community promotion
+# Snack Drop
 
-A small, ad-free directory where people can discover and submit small businesses, student projects, creators, and useful services. No paid placements or boosted ranking.
+A simple, responsive storefront for one seller's own products. It is not a marketplace: there are no seller-submission forms, no third-party listings, and no paid placement system.
 
-## Current status
+## Current storefront
 
-- The static site is ready to deploy to Vercel or GitHub Pages.
-- Search, category filters, responsive layout, and submission form are implemented.
-- **Without Supabase configuration, the site is in preview mode.** Example cards are clearly marked DEMO, and submitted forms are saved only in the submitter's browser. They are not public submissions.
-- Configure Supabase below to enable shared approved listings and public submission intake.
+- Red Takis — 7 SAR per pack
+- Blue Heat Takis — 7 SAR per pack
+- Responsive product cards and add-to-bag interactions
+- Quantity controls and a live total
+- Generates a copyable order message
 
-## Connect a free Supabase project
+## Important order limitations
 
-1. Create a Supabase project on the free plan.
-2. Open the SQL Editor and run `supabase/schema.sql`.
-3. In `index.html`, set `SUPABASE_URL` and `SUPABASE_ANON_KEY` near the top of the script using the project's **Project URL** and **publishable/anon key**.
-4. Never use a service-role key in frontend code.
-5. Public submissions are inserted as `pending`; only `approved` rows are publicly readable. Review submissions in Supabase Table Editor and change status to `approved` only after checking them.
+This is a static storefront. It does not take payments, reserve inventory, or send orders automatically. Customers must copy the generated message and contact the seller through their existing contact method. Add your preferred public contact details before sharing the site widely.
 
-## Safety and privacy
-
-- Collect only a public listing name, category, short description, optional public website/social URL, and optional display name.
-- Do not ask for passwords, ID documents, private addresses, or sensitive personal details.
-- Do not publish a listing without permission from the person/business represented.
-- Because public inserts are anonymous, add a CAPTCHA or a server-side rate limit before promoting the form widely. Supabase RLS prevents public users from approving/rejecting listings, but it does not fully prevent spam.
-- Demo entries are examples, not real endorsements or active businesses.
-
-## Files
-
-- `index.html`: responsive site and client-side functionality.
-- `supabase/schema.sql`: table, validation constraints, and row-level security policies.
+Product names, availability, and prices should be checked by the seller before going live.
 
 ## Deploy
 
-Import this repository into Vercel and deploy with no build command and no output directory (static HTML). Or enable GitHub Pages from the repository's main branch/root.
+Import this repository into Vercel and deploy as a static site with no build command and no output directory, or enable GitHub Pages for the main branch/root.
