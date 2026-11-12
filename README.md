@@ -19,6 +19,7 @@ Orbal is a cross-platform compute-contribution and internal rewards prototype.
 Install Flutter, then:
 ```sh
 cd apps/orbal_flutter
+flutter create . --platforms=android,ios,windows,linux
 flutter pub get
 flutter analyze
 flutter test
