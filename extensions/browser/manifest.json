@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Orbal Companion",
+  "version": "0.1.0",
+  "description": "A lightweight companion for the Orbal compute network.",
+  "action": {
+    "default_title": "Orbal",
+    "default_popup": "popup.html"
+  },
+  "permissions": [],
+  "host_permissions": []
+}
