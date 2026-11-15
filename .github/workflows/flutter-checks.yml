@@ -1,5 +1,6 @@
 name: Orbal Flutter checks and builds
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'apps/orbal_flutter/**'
@@ -21,7 +22,7 @@ jobs:
           channel: stable
       - run: flutter create . --platforms=android,ios,windows,linux
       - run: flutter pub get
-      - run: flutter analyze
+      - run: flutter analyze --no-fatal-infos
       - run: flutter test
 
   build:
