@@ -59,6 +59,23 @@ jobs:
       - run: flutter create . --platforms=android,ios,windows,linux
       - run: flutter pub get
       - run: ${{ matrix.command }}
+      - name: Bundle Microsoft Visual C++ runtime (Windows)
+        if: matrix.target == 'windows'
+        shell: pwsh
+        run: |
+          $release = "build/windows/x64/runner/Release"
+          $vsRoot = Join-Path $env:ProgramFiles "Microsoft Visual Studio\\2022"
+          $crt = Get-ChildItem -Path $vsRoot -Directory -Recurse -Filter "Microsoft.VC*.CRT" -ErrorAction SilentlyContinue |
+            Where-Object { $_.FullName -match '\\\\x64\\\\Microsoft\\.VC\\d+\\.CRT$' } |
+            Sort-Object FullName -Descending |
+            Select-Object -First 1
+          if (-not $crt) {
+            throw "Could not locate the x64 Microsoft Visual C++ runtime on this runner."
+          }
+          Copy-Item -Path (Join-Path $crt.FullName '*') -Destination $release -Recurse -Force
+          if (-not (Test-Path (Join-Path $release 'msvcp140.dll'))) {
+            throw "MSVCP140.dll was not bundled into the Windows release."
+          }
       - uses: actions/upload-artifact@v4
         with:
           name: orbal-${{ matrix.target }}
